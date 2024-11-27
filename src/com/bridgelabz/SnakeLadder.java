@@ -7,6 +7,8 @@ public class SnakeLadder {
 
         int snakePosition[] = {8, 12, 18, 21, 28, 38, 50, 62, 77, 82,};
         int ladderPosition[] = {20, 30, 45, 66, 88};
+        int diceCount = 0;
+
         int player1Position = 0;
         System.out.println("Start the snake ladder game");
         System.out.println("Player 1 is at position " + player1Position);
@@ -16,6 +18,7 @@ public class SnakeLadder {
 
             int rolledResult = (int) (Math.random() * 6) + 1;
             System.out.println("\nPlayer 1 rolls a dice & result is " + rolledResult);
+            diceCount++;
 
 
             if (player1Position + rolledResult <= WIN_POSITION) {
@@ -52,5 +55,6 @@ public class SnakeLadder {
         }
 
         System.out.println("\nPlayer 1 wins the game by reaching position " + player1Position + "!");
+        System.out.println("Dice was played " +diceCount +" times to win the game");
     }
 }
