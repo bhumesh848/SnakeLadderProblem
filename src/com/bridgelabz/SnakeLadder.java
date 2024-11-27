@@ -17,15 +17,13 @@ public class SnakeLadder {
             int rolledResult = (int) (Math.random() * 6) + 1;
             System.out.println("\nPlayer 1 rolls a dice & result is " + rolledResult);
 
-
             if (player1Position + rolledResult <= WIN_POSITION) {
                 player1Position += rolledResult;
                 System.out.println("Player 1 moves to position " + player1Position);
 
-
                 for (int snake : snakePosition) {
                     if (player1Position == snake) {
-                        player1Position -= rolledResult; // Move back by dice roll
+                        player1Position -= rolledResult;
                         System.out.println("Oops! Player 1 got a snake at position " + snake);
                         System.out.println("Player 1 moves back to position " + player1Position);
                         break;
