@@ -47,7 +47,7 @@ public class SnakeLadder {
                     }
                 }
             } else {
-                System.out.println("Dice roll exceeds WIN_POSITION. Player stays at position " + player1Position);
+                System.out.println("Dice roll exceeds win position. Player stays at position " + player1Position);
             }
         }
 
