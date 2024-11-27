@@ -25,7 +25,10 @@ public class SnakeLadder {
 
                 for (int snake : snakePosition) {
                     if (player1Position == snake) {
-                        player1Position -= rolledResult; // Move back by dice roll
+                        player1Position -= rolledResult;
+                        if (player1Position < 0){
+                            player1Position = 0;
+                        }
                         System.out.println("Oops! Player 1 got a snake at position " + snake);
                         System.out.println("Player 1 moves back to position " + player1Position);
                         break;
