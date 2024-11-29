@@ -5,56 +5,68 @@ public class SnakeLadder {
 
     public static void main(String[] args) {
 
-        int snakePosition[] = {8, 12, 18, 21, 28, 38, 50, 62, 77, 82,};
+        int snakePosition[] = {8, 12, 18, 21, 28, 38, 50, 62, 77, 82};
         int ladderPosition[] = {20, 30, 45, 66, 88};
-        int diceCount = 0;
 
         int player1Position = 0;
-        System.out.println("Start the snake ladder game");
-        System.out.println("Player 1 is at position " + player1Position);
-        System.out.println("Player 1 rolls a dice");
+        int player2Position = 0;
 
-        while (player1Position < WIN_POSITION) {
+        System.out.println("Start the Snake and Ladder game");
 
-            int rolledResult = (int) (Math.random() * 6) + 1;
-            System.out.println("\nPlayer 1 rolls a dice & result is " + rolledResult);
-            diceCount++;
+        while (player1Position < WIN_POSITION && player2Position < WIN_POSITION) {
 
+            System.out.println("\nPlayer 1's Turn:");
+            player1Position = playTurn(player1Position, snakePosition, ladderPosition);
 
-            if (player1Position + rolledResult <= WIN_POSITION) {
-                player1Position += rolledResult;
-                System.out.println("Player 1 moves to position " + player1Position);
+            if (player1Position >= WIN_POSITION) {
+                System.out.println("Player 1 wins!");
+                break;
+            }
 
+            System.out.println("\nPlayer 2's Turn:");
+            player2Position = playTurn(player2Position, snakePosition, ladderPosition);
 
-                for (int snake : snakePosition) {
-                    if (player1Position == snake) {
-                        player1Position -= rolledResult;
-                        if (player1Position < 0){
-                            player1Position = 0;
-                        }
-                        System.out.println("Oops! Player 1 got a snake at position " + snake);
-                        System.out.println("Player 1 moves back to position " + player1Position);
-                        break;
-                    }
-                }
+            if (player2Position >= WIN_POSITION) {
+                System.out.println("Player 2 wins!");
+                break;
+            }
+        }
+    }
 
-                for (int ladder : ladderPosition) {
-                    if (player1Position == ladder) {
-                        player1Position += rolledResult;
-                        if (player1Position > WIN_POSITION) {
-                            player1Position = WIN_POSITION;
-                        }
-                        System.out.println(" Player 1 got a ladder at position " + ladder);
-                        System.out.println("Player 1 moves forward to position " + player1Position);
-                        break;
-                    }
-                }
-            } else {
-                System.out.println("Dice roll exceeds win position. Player stays at position " + player1Position);
+    public static int playTurn(int playerPosition, int[] snakes, int[] ladders) {
+        int diceRoll = (int) (Math.random() * 6) + 1;
+        System.out.println("Dice rolled: " + diceRoll);
+
+        playerPosition += diceRoll;
+        System.out.println("Moved to position: " + playerPosition);
+
+        for (int snake : snakes) {
+            if (playerPosition == snake) {
+                System.out.println("Oh no! Bitten by a snake at " + snake);
+                playerPosition -= diceRoll;
+                if (playerPosition < 0)
+                    playerPosition = 0;
+                System.out.println("Moved back to position: " + playerPosition);
+                return playerPosition;
             }
         }
 
-        System.out.println("\nPlayer 1 wins the game by reaching position " + player1Position + "!");
-        System.out.println("Dice was played " +diceCount +" times to win the game");
+        for (int ladder : ladders) {
+            if (playerPosition == ladder) {
+                System.out.println("Great! Climbed a ladder at " + ladder);
+                playerPosition += diceRoll;
+                if (playerPosition > WIN_POSITION)
+                    playerPosition = WIN_POSITION;
+                System.out.println("Moved forward to position: " + playerPosition);
+                return playerPosition;
+            }
+        }
+
+        if (playerPosition > WIN_POSITION) {
+            playerPosition -= diceRoll;
+            System.out.println("Roll exceeds WIN_POSITION. Staying at position: " + playerPosition);
+        }
+
+        return playerPosition;
     }
 }
